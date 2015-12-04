@@ -12,6 +12,7 @@ import java.lang.reflect.Method;
  */
 public class AppStart {
     public static void main(String[] args) throws Exception {
+
         String keyFileName = args[0];
         String jarFileName = args[1];
         String appName = args[2];
@@ -26,7 +27,7 @@ public class AppStart {
         SecretKey key = keyFactory.generateSecret(dks);
 
         //创建包含解密实现的ClassLoader
-        DecryptClassLoader decryptStart = new DecryptClassLoader(FileUtil.readFile(jarFileName), key, key.getClass().getClassLoader());
+        DecryptClassLoader decryptStart = new DecryptClassLoader(FileUtil.readFile(jarFileName), key, ClassLoader.getSystemClassLoader());
         Class clazz = decryptStart.loadClass(appName);
 
         //拿到main方法
